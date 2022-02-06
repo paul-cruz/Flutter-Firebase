@@ -96,8 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 100,
-                width: 100,
+                height: 75,
+                width: 75,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),

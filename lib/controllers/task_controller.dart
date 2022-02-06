@@ -29,16 +29,23 @@ class Taskcontroller extends GetxController {
     }).catchError((error) => "Failed to add task: $error");
   }
 
+  Future<String> delete(String docId) {
+    return tasks
+        .doc(docId)
+        .delete()
+        .then((value) => "User Deleted")
+        .catchError((error) => "Failed to delete user: $error");
+  }
+
   Future<void> get(String owner) async {
     print("Executing get");
-    tasks
+    var querySnapshot = await tasks
         .where('owner', isEqualTo: owner)
         .orderBy('lastModification')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      tasksList.value = [];
-      tasksList.addAll(querySnapshot.docs.map((e) => Task.fromMap(e)).toList());
-      print(tasksList);
-    }).catchError((error) => print("Failed to get tasks: $error"));
+        .get();
+
+    tasksList.value = (querySnapshot.docs.map((e) => Task.fromMap(e)).toList());
+    update(['Lista']);
+    print(tasksList);
   }
 }
